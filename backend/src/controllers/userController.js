@@ -1,16 +1,18 @@
-import { User } from "../models/userMode";
+import  User  from "../models/userModel.js";
 import bcrypt,{hash} from "bcrypt";
+import {StatusCodes} from "http-status-codes";
+import crypto from "crypto";
 
 
-
-const register = async(req,res)=>{
+export const register = async(req,res)=>{
     const {name,username,password} = req.body;
 
 
     try{
+        
         const existingUser = await User.findOne({username});
         if(existingUser){
-            return res.status(httpStatus.FOUND).json({message:"user already exists.."});
+            return res.status(StatusCodes.FOUND).json({message:"user already exists.."});
         }
         const hashedpass = await bcrypt.hash(password,10);
         const newuser = new User({
@@ -19,14 +21,14 @@ const register = async(req,res)=>{
             password:hashedpass,
         })
         await newuser.save();
-        res.status(httpStatus.CREATED).json({messagge:"user registered"});
+        res.status(StatusCodes.CREATED).json({message:"user registered"});
 
     }catch(error){
         res.json({message:`registration failed ${error}`});
     }
 }
 
-const login = async(req,res)=>{
+export const login = async(req,res)=>{
     const {username,password} = req.body;
     if(!username || !password){
         return res.json({message:"please provide valid credentials"});
@@ -35,13 +37,14 @@ const login = async(req,res)=>{
     try{
         const user = await User.findOne({username});
         if(!user){
-            return res.status(httpStatus.NOT_FOUND).json({message:"user not found.."});
+            return res.status(StatusCodes.NOT_FOUND).json({message:"user not found.."});
         }
-        if(bcrypt.compare(password,user.password)){
+        const isMatch =await bcrypt.compare(password,user.password);
+        if(isMatch){
             const token = crypto.randomBytes(20).toString("hex");
             user.token = token;
             await user.save();
-            return res.status(httpStatus.OK).json({token:token});;
+            return res.status(StatusCodes.OK).json({token:token});;
 
         }
     }catch(error){
@@ -49,4 +52,3 @@ const login = async(req,res)=>{
     }
 }
 
-export {login,register};
