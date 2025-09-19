@@ -1,42 +1,61 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+*{
+  margin: 0;;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+.LandingPageContainer{
+  height: 100vh;
+  width: 100vw;
+  background: linear-gradient(
+              rgba(0, 0, 0, 0.6),   
+              rgba(0, 0, 0, 0.6)    
+            ),url('./assets/Globe-Earth-Connection-Network.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+.LandingPageContainer nav{
+  padding-inline: 4rem;
+  padding-block: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center ;
+  
 }
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.LandingPageContainer nav h2{
+  font-size: 1.8rem;
+  font-weight: 600;
 }
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
+.LandingPageContainer nav .navList{
+  display: flex;
+  gap: 1.6rem;
+  cursor: pointer;
 }
 
-.read-the-docs {
-  color: #888;
+.LandingMainContainer{
+  display: flex;
+  justify-content: space-between;
+  padding-inline: 3rem;
+  height: 80vh;
+  align-items: center;
+}
+.LandingMainContainer>div:nth-child(1){
+  font-size: 2rem;
+
+}
+.LandingMainContainer>div:nth-child(1) div[role='button']{
+  background-color: rgb(245, 119, 0);
+  width: fit-content;
+  padding: 1rem;
+  margin-top: 1rem;
+  border-radius: 30px;
+}
+.LandingMainContainer>div:nth-child(1) div[role='button'] a{
+  text-decoration: none;
+  color: white;
+  font-size: 1.8rem;
+}
+.LandingMainContainer>div:nth-child(2) img{
+  height: 60vh;
 }
