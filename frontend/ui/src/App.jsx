@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import LandingPage from './pages/LandingPage'
 import {BrowserRouter as Router,Routes,Route} from 'react-router-dom'
+import { AuthProvider } from './context/AuthContext.jsx'
+import Security from './pages/Security.jsx'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -11,11 +11,12 @@ function App() {
   return (
     <>
       <Router>
-
-        <Routes>
-          <Route path='/' element={<LandingPage/>}/>
-        </Routes>
-
+        <AuthProvider>
+          <Routes>
+            <Route path='/' element={<LandingPage/>}/>
+            <Route path='/auth' element={<Security/>}/>
+          </Routes>
+        </AuthProvider>
       </Router>
     </>
   )
